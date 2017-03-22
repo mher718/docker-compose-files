@@ -1,0 +1,5 @@
+fluentd:
+  #container_name: fluentd
+  image: docker-registry.local/infra/fluentd:0.10.56-2.1.1
+  volumes:
+    - /var/lib/docker/containers:/var/lib/docker/containers

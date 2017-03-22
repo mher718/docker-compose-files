@@ -1,0 +1,19 @@
+registry:
+  container_name: docker-registry
+  image: registry:2
+  ports:
+    - 127.0.0.1:5000:5000
+  environment:
+    REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+  volumes:
+    - /var/container_data/registry-data/:/data
+nginx:
+  container_name: nginx-registry
+  #image: "nginx:1.9"
+  image: nginx
+  ports:
+    - 443:443
+  links:
+    - registry:registry
+  volumes:
+    - /var/container_data/nginx-registry/:/etc/nginx/conf.d:ro
