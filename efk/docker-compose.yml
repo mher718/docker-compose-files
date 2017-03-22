@@ -1,0 +1,23 @@
+fluentd:
+  #container_name: fluentd
+  image: docker-registry.local/infra/fluentd:0.10.56-2.1.1
+  volumes:
+    - /var/lib/docker/containers:/var/lib/docker/containers
+elasticsearch:
+  #container_name: es
+  image: elasticsearch:2.3.5
+  ports:
+    - 9200:9200
+    - 9300:9300
+  volumes:
+    - /var/container_data/es-data:/usr/share/elasticsearch/data
+kibana:
+  #container_name: kibana
+  image: kibana:4.5.0
+  ports:
+    - 5601:5601
+  #environment:
+  #  - ELASTICSEARCH_URL=http://elasticsearch.local:9200
+  links:
+    - elasticsearch:elasticsearch
+
