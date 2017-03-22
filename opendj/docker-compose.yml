@@ -1,0 +1,23 @@
+ld1:
+  container_name: ld1
+  restart: always
+  image: oberthur/docker-opendj:2.6.2
+  entrypoint: tail -f /dev/null
+  expose:
+    - "389"
+    - "636"
+    - "4444"
+    - "8989"
+  ports:
+    - "389:389"
+    - "636:636"
+    - "4444:4444"
+    - "8989:8989"
+  hostname: ld1
+  #extra_hosts:
+    #- "ld2:172.16.253.11"
+  volumes:
+    - /var/container_data/ld1/db:/opt/opendj/db:rw
+    - /var/container_data/ld1/logs:/opt/opendj/logs:rw
+    - /var/container_data/ld1/config:/opt/opendj/config:rw
+    - /var/container_data/ld1/data:/data:rw

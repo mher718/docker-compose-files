@@ -1,0 +1,30 @@
+zabbix-db:
+  container_name: zabbix-db
+  restart: always
+  image: monitoringartist/zabbix-db-mariadb:latest
+  ports:
+    - 3306:3306
+  environment:
+    - MARIADB_USER=zabbix
+    - MARIADB_PASS=zabbix-123
+    - DB_innodb_buffer_pool_size=768M 
+  volumes:
+    - /var/container_data/zabbix-3.0/db:/var/lib/mysql
+    - /var/container_data/zabbix-3.0/backups:/backups
+    - /etc/localtime:/etc/localtime:ro
+zabbix-server:
+  container_name: zabbix-server
+  restart: always
+  image: monitoringartist/zabbix-xxl:latest
+  ports:
+    - 8088:80
+    - 10051:10051
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /var/container_data/zabbix-3.0/logs:/var/log/zabbix:rw
+  links:
+    - zabbix-db:zabbix.db
+  environment:
+    - ZS_DBHost=zabbix.db
+    - ZS_DBUser=zabbix
+    - ZS_DBPassword=zabbix-123
