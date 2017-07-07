@@ -12,8 +12,8 @@ services:
     environment:
       - MYSQL_DATABASE=zabbix
       - MYSQL_USER=zabbix
-      - MYSQL_PASSWORD=zabbix
-      - MYSQL_ROOT_PASSWORD=1amr00t!
+      - MYSQL_PASSWORD=<zabbix_passwd>
+      - MYSQL_ROOT_PASSWORD=<mysql_root_passwd>
 
   zabbix-java-gateway:
     container_name: zabbix-java-gateway
@@ -30,8 +30,8 @@ services:
       - DB_SERVER_HOST=zabbix-db
       - MYSQL_DATABASE=zabbix
       - MYSQL_USER=zabbix
-      - MYSQL_PASSWORD=zabbix
-      - MYSQL_ROOT_PASSWORD=1amr00t!
+      - MYSQL_PASSWORD=<zabbix_passwd>
+      - MYSQL_ROOT_PASSWORD=<mysql_root_passwd>
       - ZBX_JAVAGATEWAY=zabbix-java-gateway
       - ZBX_ENABLE_SNMP_TRAPS=true
     links: 
@@ -51,8 +51,8 @@ services:
       - DB_SERVER_HOST=zabbix-db
       - MYSQL_DATABASE=zabbix
       - MYSQL_USER=zabbix
-      - MYSQL_PASSWORD=zabbix
-      - MYSQL_ROOT_PASSWORD=1amr00t!
+      - MYSQL_PASSWORD=<zabbix_passwd>
+      - MYSQL_ROOT_PASSWORD=<mysql_root_passwd>
     links:
       - zabbix-db:zabbix-db
       - zabbix-server:zabbix-server
