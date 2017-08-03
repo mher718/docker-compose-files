@@ -2,7 +2,9 @@ ld1:
   container_name: ld1
   restart: always
   image: oberthur/docker-opendj:2.6.2
-  entrypoint: tail -f /dev/null
+  entrypoint: #tail -f /dev/null
+    - "/opt/opendj/bin/start-ds"
+    - "--nodetach"
   expose:
     - "389"
     - "636"
