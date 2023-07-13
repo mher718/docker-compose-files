@@ -5,8 +5,8 @@ http:
     -
       host: '0.0.0.0'
       port: 4443
-      certificate : '/ssl/lu.smctr.net.crt'
-      key : '/ssl/lu.smctr.net.key'
+      certificate : '/ssl/domain.crt'
+      key : '/ssl/domain.key'
 
   mounts:
     '/': '/home/node/xen-orchestra/packages/xo-web/dist/'
