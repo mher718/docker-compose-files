@@ -1,0 +1,38 @@
+version: '3'
+services:
+  orchestra:
+    restart: unless-stopped
+    image: docker-release.otlabs.fr/infra/xen-orchestra-ce:master-11031
+    container_name: XO_server
+    ports:
+      - "4443:4443"
+    depends_on:
+      - redis
+    environment:
+      - DEBUG=xo:main
+      - NODE_ENV=production
+      - XOA_PLAN=5
+      # To enable XO superuser features (ex: NFS mount) on the host
+      # uncomment the following lines, it will start XO as superuser
+      # and enable the privileged capabilities for this container (access
+      # host devices, ...) NB: it's a security issue, so be warned !
+      - USER=root
+    privileged: true
+    volumes:
+      - /opt/container-data/xen-orchestra/xo-server.config.yaml:/home/node/xen-orchestra/packages/xo-server/.xo-server.yaml:rw
+      - /opt/container-data/xen-orchestra/ssl:/ssl
+      - /var/lib/data/xo-server:/storage
+    logging: &logging
+      driver: "json-file"
+      options:
+        max-size: "1M"
+        max-file: "2"
+  redis:
+    restart: unless-stopped
+    container_name: XO_redis
+    image: docker-release.otlabs.fr/infra/docker-redis:5.0.6
+    command: redis-server --appendonly yes
+    volumes:
+      - /var/lib/data/redis:/data
+    logging:
+      <<: *logging
