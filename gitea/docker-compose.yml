@@ -1,0 +1,70 @@
+---
+version: '3'
+services:
+  web:
+    image: gitea/gitea:1.12.4
+    container_name: gitea
+    volumes:
+      - ./data:/data
+    ports:
+      - "3000:3000"
+      - "1022:22"
+    depends_on:
+      - db
+    restart: always
+  
+  db:
+    image: mariadb:10
+    container_name: gitea_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=1amr00t!
+      - MYSQL_DATABASE=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=P@ssw0rd-123
+    volumes:
+      - ./db/:/var/lib/mysql
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      #- /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Asia/Manila
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+        #- WATCHTOWER_POLL_INTERVAL=60
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
