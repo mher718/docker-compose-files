@@ -1,0 +1,13 @@
+version: '2'
+services:
+
+  freeradius:
+    image: freeradius/freeradius-server
+    container_name: radius
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    volumes:
+      - /var/container_data/freeradius/users:/etc/raddb/mods-config/files/authorize:rw
+      - /var/container_data/freeradius/clients.conf:/etc/raddb/clients.conf:rw
+      - /var/container_data/freeradius/logs:/var/log/freeradius

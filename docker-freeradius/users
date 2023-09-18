@@ -1,0 +1,22 @@
+# /etc/freeradius/3.0/users
+
+## Test Account ##
+# userid: user1, password: P8hj@GHOGr11
+# user1 SHA-Password := "C274758986A51856D8F08FC29CBC651E535915DE"
+# radtest user1 P8hj@GHOGr11 localhost 0 secretpasswd3
+# OLD: user1 SHA-Password := "78BD9607255CE5D2C16B8082523DF770B249D5BE"
+# radtest user1 dE5F^eetNjnD localhost 0 secretpasswd3
+
+user1 SHA-Password := "C274758986A51856D8F08FC29CBC651E535915DE"
+    User-Service-Type = Login-User,
+    Service-Type = Administrative-User,
+    Fortinet-Access-Profile = "ADM-Access",
+    Fortinet-Group-Name = "ADM-Access"
+
+user2 SHA-Password := "90db1364339cee4e6bc60efc88fd2120ccdbbd80"
+    User-Service-Type = Login-User,
+    Service-Type = Administrative-User,
+    Fortinet-Access-Profile = "ADM-Access",
+    Cisco-AVPair = "shell:roles=network-admin",
+    Cisco-AVPair += "shell:priv-lvl=15",
+    Fortinet-Group-Name = "ADM-Access"

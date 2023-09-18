@@ -45,6 +45,10 @@ services:
     # fully-qualified domain name for the host.
     domainname: "smctr.net"
     hostname: "ldap01"
+    extra_hosts:
+      - "ldap01.smctr.net:192.168.1.1"
+      - "ldap02.smctr.net:192.168.1.2"
+      - "ldap03.smctr.net:192.168.1.3"
 
   phpldapadmin:
     image: osixia/phpldapadmin:latest
@@ -57,3 +61,7 @@ services:
       - "443:443"
     depends_on:
       - ldap01
+    extra_hosts:
+      - "ldap01.smctr.net:192.168.1.1"
+      - "ldap02.smctr.net:192.168.1.2"
+      - "ldap03.smctr.net:192.168.1.3"
