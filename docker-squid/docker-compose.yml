@@ -1,14 +1,13 @@
-version: "3"
+version: '3'
 services:
+
   squid:
-    image: alpine-docker-squid:5.7
-    container_name: docker-squid
-    network_mode: "host"
-    #environment:
+    image: sameersbn/squid:3.5.27-2
+    container_name: squid
     ports:
       - "3128:3128"
     volumes:
-      - /var/cache/squid:/var/cache/squid:rw
-      - /var/container_data/squid/squid.conf:/etc/squid/squid.conf
-      - /var/log/squid:/var/log/squid:rw
+      - /opt/container_data/squid/spool:/var/spool/squid
+      - /opt/container_data/squid/log:/var/log/squid
+      - /opt/container_data/squid/squid.conf:/etc/squid/squid.conf
     restart: always

@@ -1,22 +1,27 @@
-# /etc/freeradius/3.0/users
+# /etc/freeradius/users
 
 ## Test Account ##
-# userid: user1, password: P8hj@GHOGr11
-# user1 SHA-Password := "C274758986A51856D8F08FC29CBC651E535915DE"
-# radtest user1 P8hj@GHOGr11 localhost 0 secretpasswd3
-# OLD: user1 SHA-Password := "78BD9607255CE5D2C16B8082523DF770B249D5BE"
-# radtest user1 dE5F^eetNjnD localhost 0 secretpasswd3
+# userid: elmerami, password: P8hj@GHOGr11
+#elmerami SHA-Password := "C274758986A51856D8F08FC29CBC651E535915DE"
+# radtest elmerami P8hj@GHOGr11 localhost 0 secretpasswd3
+# OLD: elmerami SHA-Password := "78BD9607255CE5D2C16B8082523DF770B249D5BE"
+# radtest elmerami dE5F^eetNjnD localhost 0 secretpasswd3
 
-user1 SHA-Password := "C274758986A51856D8F08FC29CBC651E535915DE"
+seshidum SHA-Password := "8a522b91b2677e81e510f393009025f602eceb7d"
+    User-Service-Type = Login-User,
+    Service-Type = Administrative-User,
+    Fortinet-Access-Profile = "super_admin",
+    Fortinet-Group-Name = "super_admin"
+
+geethesh SHA-Password := "02f088a0d330058924cc49309d5b0a40f2a469b5"
     User-Service-Type = Login-User,
     Service-Type = Administrative-User,
     Fortinet-Access-Profile = "ADM-Access",
     Fortinet-Group-Name = "ADM-Access"
 
-user2 SHA-Password := "90db1364339cee4e6bc60efc88fd2120ccdbbd80"
+#elmerami SHA-Password := "BBFC17E721F9D292B0622714B049E316BA767735"
+elmerami SHA-Password := "C274758986A51856D8F08FC29CBC651E535915DE"
     User-Service-Type = Login-User,
     Service-Type = Administrative-User,
     Fortinet-Access-Profile = "ADM-Access",
-    Cisco-AVPair = "shell:roles=network-admin",
-    Cisco-AVPair += "shell:priv-lvl=15",
-    Fortinet-Group-Name = "ADM-Access"
+   Fortinet-Group-Name = "ADM-Access"
