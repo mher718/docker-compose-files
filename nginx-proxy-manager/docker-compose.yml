@@ -1,12 +1,43 @@
-version: '3'
+#version: '3'
+#services:
+#  app:
+#    image: 'jc21/nginx-proxy-manager:latest'
+#    restart: unless-stopped
+#    ports:
+#      - '80:80'
+#      - '81:81'
+#      - '443:443'
+#    volumes:
+#      - /opt/container_data/npm/data:/data
+#      - /opt/container_data/npm:/etc/letsencrypt
+---
+#version: '3' obselete
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
+    container_name: npm-app
     ports:
       - '80:80'
       - '81:81'
       - '443:443'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_NAME: "npm"
     volumes:
-      - /opt/container_data/npm/data:/data
-      - /opt/container_data/npm:/etc/letsencrypt
+      - /var/container_data/npm/app-data:/data
+      - /var/container_data/npm/letsencrypt:/etc/letsencrypt
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: npm-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    ports:
+      - '3306:3306'
+    volumes:
+      - /var/container_data/npm/mysql:/var/lib/mysql
